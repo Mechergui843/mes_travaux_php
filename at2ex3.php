@@ -46,9 +46,43 @@
     </div>
   </div>
 </nav>
+
+
+<?php
+   $tmots=["ahmed"=>"ahmed1234","bilel"=>"bilel098","yassine"=>"hhhyass345","mohamed"=>"moha12345"];
+   $tmots1=array();
+   foreach ($tmots as $key => $value) {
+       $tmots1[$value]=$key;
+   }
+
+?>
 <div class="container mt-3">
+
+    </div>
+
+    <form action="<?= $_SERVER['PHP_SELF']; ?>" method="POST">
+        <label for="utilisateur">Sélectionnez un utilisateur :</label>
+        <select name="utilisateur" id="utilisateur">
+            <?php
+            foreach ($tmots as $nom => $mdp) {
+                echo "<option value='$nom'>$nom</option>";
+            }
+            ?>
+        </select>
+        <input type="submit" value="Afficher le mot de passe">
+        </form>
+        <form action="<?= $_SERVER['PHP_SELF']; ?>" method="POST">
+        <label for="motdepasse">Sélectionnez un mot de passe :</label>
+        <select name="motdepasse" id="motdepasse">
+            <?php
+            foreach ($tmots1 as $mdp => $nom) {
+                echo "<option value='$mdp'>$mdp</option>";
+            }
+            ?>
+        </select>
+        <input type="submit" value="Afficher l'utilisateur">
+    </form>
     <?php
-   $tmots=array("ahmed"=>"ahmed1234","bilel"=>"bilel098","yassine"=>"hhhyass345","mohamed"=>"moha12345");
    if (isset($_POST['utilisateur'])) {
     $select = $_POST['utilisateur'];
     if (array_key_exists($select, $tmots)) {
@@ -58,13 +92,10 @@
         echo "Utilisateur non trouvé.";
     }
 }
-$tmots1=array();
-foreach ($tmots as $key => $value) {
-    $tmots1[$value]=$key;
-}
 
-if (isset($_GET['motdepasse'])) {
-    $select1 = $_GET['motdepasse'];
+
+if (isset($_POST['motdepasse'])) {
+    $select1 = $_POST['motdepasse'];
     if (array_key_exists($select1, $tmots1)) {
         $user = $tmots1[$select1];
         echo "Mot de passe :  $select1 user : $user <br>";
@@ -76,30 +107,6 @@ if (isset($_GET['motdepasse'])) {
 
 
    ?>
-    </div>
-
-    <form method="POST">
-        <label for="utilisateur">Sélectionnez un utilisateur :</label>
-        <select name="utilisateur" id="utilisateur">
-            <?php
-            foreach ($tmots as $nom => $mdp) {
-                echo "<option value=\"$nom\">$nom</option>";
-            }
-            ?>
-        </select>
-        <input type="submit" value="Afficher le mot de passe">
-        </form>
-        <form method="GET">
-        <label for="motdepasse">Sélectionnez un mot de passe :</label>
-        <select name="motdepasse" id="motdepasse">
-            <?php
-            foreach ($tmots1 as $mdp => $nom) {
-                echo "<option value=\"$mdp\">$mdp</option>";
-            }
-            ?>
-        </select>
-        <input type="submit" value="Afficher l'utilisateur">
-    </form>
 </body>
 
 </html>
